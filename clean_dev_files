@@ -114,3 +114,7 @@ done
 #fi
 
 print_summary
+
+if type "trash" &> /dev/null; then
+  echo "Don't forget to empty Trash"
+fi
