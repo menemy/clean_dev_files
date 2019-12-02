@@ -31,6 +31,7 @@ if type "yarn" &>/dev/null; then
 fi
 clean_folder "$TMPDIR/metro-cache"
 clean_folder "$HOME/.vagrant.d/boxes"
+clean_folder "$HOME/.vagrant.d/cache"
 clean_folder "$HOME/.gradle/caches"
 clean_folder "$HOME/.gradle/wrapper"
 clean_folder "$HOME/.m2/repository"
@@ -79,9 +80,9 @@ for i in $(echo -e "$CLEAN_DIRECTORIES" | sort -nr); do
   if [[ $CONFIRMATION =~ ^[Yy]$ ]]
     then
       if type "trash" &> /dev/null; then
-        trash -r $1
+        trash -r $DIR
       else
-        rm -r $1
+        rm -r $DIR
       fi
       TOTAL_SAVED=$((TOTAL_SAVED+DIR_SIZE ))
     else
