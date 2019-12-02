@@ -61,6 +61,8 @@ for i in $(find $HOME/Library/Caches -name IntelliJ* -type d -exec du -s {} \;);
   DIR_SIZE=$(echo $i|cut -f1)
   clean_folder "$DIR" "$DIR_SIZE"
 done
+echo "Please run this only in directory with your dev projects, currently in $(pwd)"
+# todo try to parse gitignore
 for i in $(find . -name node_modules -type d -exec du -s {} \;); do
   DIR=$(echo $i|cut -f2)
   DIR_SIZE=$(echo $i|cut -f1)
@@ -69,6 +71,18 @@ for i in $(find . -name node_modules -type d -exec du -s {} \;); do
   then
       clean_folder "$DIR" "$DIR_SIZE"
   fi
+done
+for i in $(find . -name target -type d -exec du -s {} \;); do
+  DIR=$(echo $i|cut -f2)
+  DIR_SIZE=$(echo $i|cut -f1)
+  #skip inner node_nodules
+  clean_folder "$DIR" "$DIR_SIZE"
+done
+for i in $(find . -name build -type d -exec du -s {} \;); do
+  DIR=$(echo $i|cut -f2)
+  DIR_SIZE=$(echo $i|cut -f1)
+  #skip inner node_nodules
+  clean_folder "$DIR" "$DIR_SIZE"
 done
 
 for i in $(echo -e "$CLEAN_DIRECTORIES" | sort -nr); do
