@@ -75,14 +75,20 @@ done
 for i in $(find . -name target -type d -exec du -s {} \;); do
   DIR=$(echo $i|cut -f2)
   DIR_SIZE=$(echo $i|cut -f1)
-  #skip inner node_nodules
-  clean_folder "$DIR" "$DIR_SIZE"
+  #skip in node_nodules
+  if [[ ! $DIR =~ ^.*node_modules.*target.*$ ]];
+  then
+      clean_folder "$DIR" "$DIR_SIZE"
+  fi
 done
 for i in $(find . -name build -type d -exec du -s {} \;); do
   DIR=$(echo $i|cut -f2)
   DIR_SIZE=$(echo $i|cut -f1)
-  #skip inner node_nodules
-  clean_folder "$DIR" "$DIR_SIZE"
+  #skip in node_modules
+  if [[ ! $DIR =~ ^.*node_modules.*build.*$ ]];
+  then
+      clean_folder "$DIR" "$DIR_SIZE"
+  fi
 done
 
 for i in $(echo -e "$CLEAN_DIRECTORIES" | sort -nr); do
