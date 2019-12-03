@@ -109,10 +109,6 @@ for i in $(echo -e "$CLEAN_DIRECTORIES" | sort -nr); do
   fi
 done
 
-#if type "docker" &> /dev/null; then
-#    docker system prune -af
-#fi
-
 print_summary
 
 if type "trash" &> /dev/null; then
